@@ -25,11 +25,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: suhat-service
   name: suhat-service
 spec:
-  - port: 80
-    name: suhat-spec
-    protocol: TCP
-    targetPort: 8888
+  selector:
+      app: suhat-deployment
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
