@@ -1,0 +1,35 @@
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  labels:
+    app: suhat-deployment
+  name: suhat-deployment
+spec:
+  selector:
+    matchLabels:
+      app: suhat-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: suhat-deployment
+    spec:
+      containers:
+        - name: suhat-deployment
+          image: gcr.io/nexteam-gcp/4rsim3r/jti-daspro-binder:c4a448a508140dc674ffc007a273592f6244bc28
+          ports:
+            - containerPort: 8888
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: suhat-service
+  name: suhat-service
+spec:
+  - port: 80
+    name: suhat-spec
+    protocol: TCP
+    targetPort: 8888
