@@ -22,22 +22,24 @@ RUN unzip ijava-kernel.zip -d ijava-kernel \
 
 # Set up the user environment
 
-ENV NB_USER uwais
-ENV NB_UID 1000
-ENV HOME /home/$NB_USER
+RUN mkdir /home/suhat
 
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid $NB_UID \
-    $NB_USER
+# ENV NB_USER uwais
+# ENV NB_UID 1000
 
-COPY . $HOME
-RUN chown -R $NB_UID $HOME
+# RUN adduser --disabled-password \
+#     --gecos "Default user" \
+#     --uid $NB_UID \
+#     $NB_USER
 
-USER $NB_USER
+# COPY . $HOME
+# RUN chown -R $NB_UID $HOME
+
+# USER $NB_USER
 
 # Launch the notebook server
-WORKDIR $HOME
-CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+WORKDIR /home/suhat
 
-EXPOSE 8080
+CMD ["jupyter", "notebook","--ip", "0.0.0.0", "--allow-root"]
+
+EXPOSE 8888
